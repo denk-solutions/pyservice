@@ -36,9 +36,14 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: docker compose --env-file .env.dev up -d
 
-      - name: Wait for Postgres to be ready
-        if: github.ref == 'refs/heads/main'
-        run: scripts/wait-for-it.sh -t 30 -s localhost:5432 -- echo "Postgres is up!"
+      - name: Wait for Postgres to be healthy
+        run: |
+          echo "Waiting for Postgres to be ready..."
+          until [ "$(docker inspect --format='{{json .State.Health.Status}}' pyservice-db)" == '"healthy"' ]; do
+            echo "Waiting..."
+            sleep 2
+          done
+          echo "Postgres is healthy!"
 
       - name: Run migrations
         if: github.ref == 'refs/heads/main'
