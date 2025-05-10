@@ -34,7 +34,7 @@ jobs:
 
       - name: Run docker services
         if: github.ref == 'refs/heads/main'
-        run: docker-compose --env-file .env.dev up -d
+        run: docker compose --env-file .env.dev up -d
 
       - name: Wait for Postgres to be ready
         if: github.ref == 'refs/heads/main'
