@@ -1,7 +1,7 @@
 [project]
 name = "pyservice"
 version = "0.1.0"
-description = "Add your description here"
+description = "Opinionated template for building Python services powered by PostgreSQL."
 readme = "README.md"
 authors = [{ name = "nas", email = "nas@denk-solutions.com" }]
 requires-python = ">=3.13"
