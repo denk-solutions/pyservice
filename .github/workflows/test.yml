@@ -38,7 +38,7 @@ jobs:
 
       - name: Wait for Postgres to be ready
         if: github.ref == 'refs/heads/main'
-        run: scripts/wait-for-it.sh localhost:5432 -- echo "Postgres is up!"
+        run: scripts/wait-for-it.sh -t 30 -s localhost:5432 -- echo "Postgres is up!"
 
       - name: Run migrations
         if: github.ref == 'refs/heads/main'
