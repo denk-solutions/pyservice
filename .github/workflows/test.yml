@@ -23,18 +23,18 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Install the project
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras --test
 
       - name: Load .env.dev
         run: |
-          set -o allexport; source .env.dev; set +o allexport
+          set -o allexport; source .env.test; set +o allexport
 
       - name: Run unit tests
         run: uv run pytest tests -v -m "not integration"
 
       - name: Run docker services
         if: github.ref == 'refs/heads/main'
-        run: docker compose --env-file .env.dev up -d
+        run: docker compose --env-file .env.test up -d
 
       - name: Wait for Postgres to be healthy
         run: |
